@@ -23,6 +23,7 @@ with open("data.json", "w") as file:
         song.make_song_model()
         
         scraped_data["SampleDataSongs"].append(song.model)
+        print(scraped_data)
         
         
     data  = json.dumps(scraped_data)
