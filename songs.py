@@ -1,4 +1,4 @@
-import requests
+import requests, re
 from bs4 import BeautifulSoup
 
 class Song():
@@ -22,4 +22,5 @@ class Song():
         self.model = [self.name,self.lyrics]
 
 
-    def format_lyrics(self): pass
+    def format_lyrics(self):
+        self.lyrics = re.split("[1-9].",self.lyrics)
