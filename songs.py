@@ -19,7 +19,14 @@ class Song():
         self.format_lyrics()
 
     def make_song_model(self):      
-        self.model = [self.name,self.lyrics]
+        lyrics = []
+        for verse in self.lyrics:
+            if verse == "":
+                continue
+            lyrics.append(verse)
+
+        self.model = [self.name,lyrics]
+        
 
 
     def format_lyrics(self):

@@ -22,7 +22,6 @@ def scrape(document):
 
             song = Song(link,name)
             song.make_song_model()
-            
             scraped_data["SampleDataSongs"].append(song.model)
             if test == "Y":
                 return
