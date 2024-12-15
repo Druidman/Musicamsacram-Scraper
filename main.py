@@ -1,36 +1,56 @@
-from scraper import Scraper
-from songs import Song
+from scraper import getCategoryObjects, getSongObjects, getVerses
 from document import getDocument
+import requests
+from bs4 import BeautifulSoup
 
-import json
 
 
-def scrape(document):
-    test = input("test mode?: ").upper()
-    with open("data.json", "w") as file:
-        scraper = Scraper(document)
 
-        scraped_data = {"SampleDataSongs": []}
+    
 
-        scraper.get_elements()
-        for element in scraper.elements:
-            song_reference = element.a
-            if not song_reference:
-                continue
-            name = song_reference.text
-            link = song_reference['href']
+mainLink = "https://musicamsacram.pl/spiewnik/kategorie"
+mainDocument = getDocument(link=mainLink)
 
-            song = Song(link,name)
-            song.make_song_model()
-            scraped_data["SampleDataSongs"].append(song.model)
-            if test == "Y":
-                return
 
-            
-            
-        data  = json.dumps(scraped_data)
-        file.write(data)
-        file.close()
+categoryObjects = getCategoryObjects(mainDocument=mainDocument)
 
-document = getDocument()
-scrape(document)
+for categoryObj in categoryObjects:
+    category = categoryObj["category"]
+    categoryLink = categoryObj["link"]
+
+    categoryDocument = getDocument(link=categoryLink)
+    songObjects = getSongObjects(categoryDocument=categoryDocument)
+
+    for songObj in songObjects:
+        title = songObj["title"]
+        songLink = songObj["link"]
+
+        songDocument = getDocument(link=songLink)
+        verses = getVerses(songDocument=songDocument)
+        print(verses)
+    
+        
+
+
+    break
+
+    
+
+
+"""
+    {
+        "data": {
+            "categories": {
+                "< CATEGORY NAME >": [
+                    {
+                        "name": "< NAME >",
+                        "lyrics": [
+                            "< verse >",
+                            "< VERSE >"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+"""
