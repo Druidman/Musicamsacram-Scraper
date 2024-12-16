@@ -65,7 +65,7 @@ for categoryObj in categoryObjects:
         
     data["data"]["categories"][category] = songs
         
-    break
+    
 
 
 data = json.dumps(data)
