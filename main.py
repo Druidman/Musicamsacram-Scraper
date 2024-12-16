@@ -27,7 +27,9 @@ for categoryObj in categoryObjects:
 
         songDocument = getDocument(link=songLink)
         verses = getVerses(songDocument=songDocument)
-        print(verses)
+        for verse in verses:
+            print(verse)
+            
     
         
 
