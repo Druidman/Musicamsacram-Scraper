@@ -1,3 +1,5 @@
+import re
+
 def getCategoryObjects(mainDocument):
     category_boxes = mainDocument.find_all(class_="panel-heading")
 
@@ -31,11 +33,13 @@ def getSongObjects(categoryDocument):
 
 def getVerses(songDocument):
     container = songDocument.find(id="siedl")
+    verses = []
     if not container:
         return ""
     
     versesString = container.p.text
-    return versesString
+    verses = re.split("[0-9].", versesString)
+    return verses
 
     
     
