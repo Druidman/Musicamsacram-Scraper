@@ -1,5 +1,20 @@
 import re
 
+def getPageLinks(categoryDocument,firstLink):
+    pages_list = categoryDocument.find_all(class_="pagination")[1]
+    linkHolders = pages_list.find_all("a")
+    links = [firstLink]
+    for linkHolder in linkHolders:
+        link = linkHolder.get("href")
+        if link in links:
+            continue
+        links.append(link)
+    
+    
+    
+
+    return links
+
 def getCategoryObjects(mainDocument):
     category_boxes = mainDocument.find_all(class_="panel-heading")
 
@@ -14,8 +29,8 @@ def getCategoryObjects(mainDocument):
         categoryObjects.append(pair)
     return categoryObjects
 
-def getSongObjects(categoryDocument):
-    song_container = categoryDocument.tbody
+def getSongObjects(pageDocument):
+    song_container = pageDocument.tbody
     song_boxes = song_container.find_all("tr")
 
     songObjects = []
