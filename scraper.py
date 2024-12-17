@@ -1,19 +1,19 @@
 import re
 
 def getPageLinks(categoryDocument,firstLink):
-    pages_list = categoryDocument.find_all(class_="pagination")[1]
-    linkHolders = pages_list.find_all("a")
-    links = [firstLink]
-    for linkHolder in linkHolders:
-        link = linkHolder.get("href")
+    pageitems = categoryDocument.find_all(class_="page-item")
+    links = [ firstLink ]
+    for item in pageitems:
+        a = item.find("a")
+        if not a:
+            continue
+        link = a.get("href")
         if link in links:
             continue
         links.append(link)
-    
-    
-    
 
     return links
+    
 
 def getCategoryObjects(mainDocument):
     category_boxes = mainDocument.find_all(class_="panel-heading")
